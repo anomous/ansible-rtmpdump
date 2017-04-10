@@ -1,0 +1,2 @@
+rtmpdump_build_root: /tmp/ansible_rtmpdump_build
+rtmpdump_ksv_patch: True

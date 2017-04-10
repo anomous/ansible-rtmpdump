@@ -1,0 +1,39 @@
+---
+# Waiting for 2.3
+#- name: Creating temp directory
+#  tempfile:
+#    state: directory
+#    suffix: rtmpdump_build
+#  register: build_root
+
+- name: Ensure build directory is present
+  file:
+    path: "{{ rtmpdump_build_root }}"
+    state: directory
+    mode: 0755
+
+- name: Checking out rtmpdump latest code
+  git:
+    repo: 'git://git.ffmpeg.org/rtmpdump'
+    dest: "{{ rtmpdump_build_root }}/rtmpdump"
+    version: master
+    force: yes
+    update: yes
+
+- name: Patching rtmpdump
+  patch:
+    src: Patch.diff
+    basedir: "{{ rtmpdump_build_root }}/rtmpdump"
+  when: rtmpdump_ksv_patch
+
+- name: Building static rtmpdump
+  make:
+    chdir: "{{ rtmpdump_build_root}}/rtmpdump"
+    params:
+      XLDFLAGS: "-s -static"
+
+- name: Installing builded rtmpdump
+  make:
+    chdir: "{{ rtmpdump_build_root }}/rtmpdump"
+    target: install
+  become: yes
