@@ -10,7 +10,7 @@ Same requirements as rtmpdump in order to build it.
 
 `rtmpdump_ksv_patch`:
 - Default: `True`
-- Apply a patch from @K-S-V to rtmpdump before building it, more informations [here](http://stream-recorder.com/forum/customized-rtmpdump-binaries-patch-file-t16103.html)
+- Apply a patch from [@K-S-V](https://github.com/K-S-V/Scripts/releases) to rtmpdump before building it, more informations [here](http://stream-recorder.com/forum/customized-rtmpdump-binaries-patch-file-t16103.html)
 
 ## Dependencies
 
