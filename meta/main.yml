@@ -1,0 +1,14 @@
+galaxy_info:
+  author: t0n3
+  description: Build and install rtmpdump via Ansible
+  license: WTFPL
+  min_ansible_version: 2.2
+  platforms:
+  - name: Debian
+    versions:
+    - jessie
+
+  galaxy_tags:
+    - rtmpdump
+
+dependencies: []
