@@ -18,7 +18,6 @@
     dest: "{{ rtmpdump_build_root }}/rtmpdump"
     version: master
     force: yes
-    update: yes
 
 - name: Patching rtmpdump
   patch:
@@ -26,14 +25,23 @@
     basedir: "{{ rtmpdump_build_root }}/rtmpdump"
   when: rtmpdump_ksv_patch
 
+- name: Cleaning old build
+  make:
+    chdir: "{{ rtmpdump_build_root}}/rtmpdump"
+    target: clean
+
 - name: Building static rtmpdump
   make:
     chdir: "{{ rtmpdump_build_root}}/rtmpdump"
     params:
-      XLDFLAGS: "-s -static"
+      SYS: posix
+      SHARED: ''
 
 - name: Installing builded rtmpdump
   make:
     chdir: "{{ rtmpdump_build_root }}/rtmpdump"
     target: install
+    params:
+      SYS: posix
+      SHARED: ''
   become: yes
